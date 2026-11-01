@@ -1,0 +1,11 @@
+{
+  "name": "reprise",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pense-bête perso pour reprendre là où on s'était arrêté après les vacances.",
+  "scripts": {
+    "test": "node --test",
+    "start": "python3 -m http.server 8080"
+  }
+}

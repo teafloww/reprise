@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reprise</title>
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="entete">
+    <div>
+      <h1>Reprise</h1>
+      <p class="sous-titre" id="resume">Là où tu t'étais arrêtée.</p>
+    </div>
+    <div class="actions">
+      <button id="btn-mail" class="secondaire">📧 Coller un mail</button>
+      <button id="btn-nouveau">+ Nouvelle fiche</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="liste" aria-live="polite"></section>
+    <p id="vide" class="vide" hidden>Aucune fiche pour l'instant.<br>Colle un mail de prof ou crée une fiche à la main.</p>
+  </main>
+
+  <footer class="pied">
+    <button id="btn-export" class="lien">Sauvegarder (.json)</button>
+    <label class="lien">Restaurer <input type="file" id="fichier-import" accept="application/json" hidden></label>
+    <span>Données stockées sur cet appareil uniquement.</span>
+  </footer>
+
+  <dialog id="dlg-mail">
+    <form method="dialog" id="form-mail">
+      <h2>Coller un mail</h2>
+      <p class="aide">Colle le texte du mail : la date, la durée, la matière et les supports sont repérés automatiquement. Tu pourras corriger avant d'enregistrer.</p>
+      <textarea id="texte-mail" rows="10" placeholder="Bonjour, un QCM aura lieu le 04/11/2026…"></textarea>
+      <div class="boutons">
+        <button value="annuler" class="secondaire" formnovalidate>Annuler</button>
+        <button id="btn-analyser" value="ok">Analyser</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-fiche">
+    <form id="form-fiche">
+      <h2 id="titre-fiche">Fiche</h2>
+      <label>Matière <input name="matiere" required maxlength="120"></label>
+      <label>Dernière séance <input type="date" name="derniereSeance"></label>
+      <label>Ce qu'on a vu (une idée par ligne)
+        <textarea name="notions" rows="3"></textarea>
+      </label>
+      <label>Supports à relire (un par ligne)
+        <textarea name="supports" rows="3"></textarea>
+      </label>
+      <fieldset>
+        <legend>Prochaine échéance</legend>
+        <div class="grille">
+          <label>Type
+            <select name="type">
+              <option>QCM</option><option>Examen</option><option>Rendu</option><option selected>Autre</option>
+            </select>
+          </label>
+          <label>Date <input type="date" name="date"></label>
+          <label>Durée (min) <input type="number" name="dureeMin" min="1" max="600"></label>
+        </div>
+        <label>Détails <input name="description" maxlength="500" placeholder="20 questions…"></label>
+      </fieldset>
+      <label>Lien Moodle (matière ou support) <input type="url" name="lien" placeholder="https://…"></label>
+      <label class="case"><input type="checkbox" name="revise"> Déjà révisé</label>
+      <div class="boutons">
+        <button type="button" id="btn-suppr" class="danger" hidden>Supprimer</button>
+        <span class="espace"></span>
+        <button type="button" id="btn-fermer" class="secondaire">Annuler</button>
+        <button type="submit">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
